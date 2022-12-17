@@ -30,8 +30,7 @@ public class DetailFournisseur implements Serializable{
 	private Date dateDebutCollaboration;
 	private String adresse;
 	private String matricule;
-	@OneToOne(mappedBy="detailFournisseur")
-	@JsonIgnore
+	
 	private Fournisseur fournisseur;
 	
 }
