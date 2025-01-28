@@ -58,7 +58,7 @@ agent any
 }
      stage('push to dockerhub'){
 	steps{
-		withDockerRegistry([credentialsId:'dockerhub', url:""]]
+		withDockerRegistry([credentialsId:'dockerhub', url:""])
 		sh 'docker push nabilchekir/nabilapp:$BUILD_NUMBER'
 }
 
