@@ -45,24 +45,27 @@ agent any
            }
        
      }
-//          stage('Build Image'){
-  //        steps {
-//		sh ' docker build -t nabilcheki/nabilapp:$BUILD_NUMBER .'
+         stage('Build Image'){
+        steps {
+		sh ' docker build -t nabilcheki/nabilapp:$BUILD_NUMBER .'
 
 
 
 
+}
+
+}
+//     stage('push to dockerhub'){
+//	steps{
+//		withDockerRegistry([credentialsId:'dockerhub', url:""])
+//		sh 'docker push nabilcheki/nabilapp:$BUILD_NUMBER'
 //}
 
 //}
-     stage('push to dockerhub'){
+	stage('docker-compose'){
 	steps{
-		withDockerRegistry([credentialsId:'dockerhub', url:""])
-		sh 'docker push nabilcheki/nabilapp:$BUILD_NUMBER'
-}
-
-}
-
+	sh 'docker-compose up'
+}}
 }
    
       
