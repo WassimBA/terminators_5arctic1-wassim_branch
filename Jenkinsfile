@@ -52,7 +52,7 @@ agent any
            
              sh 'mvn sonar:sonar -Dsonar.projectKey=nabil -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_33644a763436420a3fe65df3342abc8f1f9d2cfd' 
            }
-        }
+       
            
 
                }}}
