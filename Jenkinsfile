@@ -1,14 +1,5 @@
 pipeline {
 agent any
-   environment { 
-
-        registry = "wassimba/wassimrepo" 
-
-        registryCredential = 'dockerhub' 
-
-      dockerImage = ''
-   
-   } 
     stages {
         
 
@@ -55,7 +46,7 @@ agent any
        
            
 
-               }}}
+               }}
    
       
 }
