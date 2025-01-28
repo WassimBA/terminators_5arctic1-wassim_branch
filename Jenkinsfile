@@ -50,7 +50,19 @@ agent any
 		sh ' docker build -t nabilcheki/nabilapp:$BUILD_NUMBER .'
                 sh 'docker push nabilchekir/nabilapp:$BUILD_NUMBER'
 
-}}
+
+
+
+}
+
+}
+     stage('push to dockerhub'){
+	steps{
+		withDockerRegistry([credentialsId:'dockerhub', url:""]]
+		sh 'docker push nabilchekir/nabilapp:$BUILD_NUMBER'
+}
+
+}
 
 }
    
