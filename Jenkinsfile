@@ -47,7 +47,7 @@ agent any
      }
           stage('Build Image'){
           steps {
-		sh 'docker build -t nabilcheki/nabilapp:$BUILD_NUMBER .'
+		sh 'sudo docker build -t nabilcheki/nabilapp:$BUILD_NUMBER .'
 
 }
 
