@@ -55,17 +55,35 @@ agent any
 }
 
 }
-//     stage('push to dockerhub'){
-//	steps{
-//		withDockerRegistry([credentialsId:'dockerhub', url:""])
-//		sh 'docker push nabilcheki/nabilapp:$BUILD_NUMBER'
-//}
-
-//}
 	stage('docker-compose'){
 	steps{
 	sh 'docker-compose up'
 }}
+	stage('Run OWASP ZAP Scan') {
+            steps {
+                sh """
+                docker run --rm --network bridge -u zap \
+                    -v $(pwd):/zap/wrk:rw \
+                    uctu/zap2docker-weekly:latest zap-baseline.py \
+                    -t http://localhost:8089 \
+                    -r zap_report.html
+                """
+            }
+        }
+        stage('Publish ZAP Report') {
+            steps {
+                archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'zap_report.html',
+                    reportName: 'OWASP ZAP Security Report'
+                ])
+            }
+        }
+    }
 }
    
       
