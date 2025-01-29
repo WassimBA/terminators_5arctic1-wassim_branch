@@ -57,7 +57,7 @@ agent any
 }
 	stage('Run OWASP ZAP Scan') {
             steps {
-                sh '  docker run --rm --network bridge -u zap -v $(pwd):/zap/wrk:rw ictu/zap2docker-weekly:latest zap-baseline.py -t http://localhost:8089 -r zap_report.html'
+                sh '  docker run --rm --network bridge -u root -v $(pwd):/zap/wrk:rw ictu/zap2docker-weekly:latest zap-baseline.py -t http://localhost:8089 -r zap_report.html'
             }
         }
         stage('Publish ZAP Report') {
