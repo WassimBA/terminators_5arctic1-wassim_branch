@@ -55,10 +55,6 @@ agent any
 }
 
 }
-	stage('docker-compose'){
-	steps{
-	sh 'docker-compose up'
-}}
 	stage('Run OWASP ZAP Scan') {
             steps {
                 sh """
