@@ -60,53 +60,38 @@ agent any
        
       stage("Publish to Nexus Repository Manager") {
             steps {
-                script {
-                    pom = readMavenPom file: "pom.xml";
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-                    artifactPath = filesByGlob[0].path;
-                    artifactExists = fileExists artifactPath;
-                    if(artifactExists) {
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-                        nexusArtifactUploader(
-                            nexusVersion: NEXUS_VERSION,
-                            protocol: NEXUS_PROTOCOL,
-                            nexusUrl: NEXUS_URL,
-                            groupId: pom.groupId,
-                            version: pom.version,
-                            repository: NEXUS_REPOSITORY,
-                            credentialsId: NEXUS_CREDENTIAL_ID,
-                            artifacts: [
-                                [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: artifactPath,
-                                type: pom.packaging],
-                                [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: "pom.xml",
-                                type: "pom"]
-                            ]
-                        );
-                    } else {
-                        error "*** File: ${artifactPath}, could not be found";
+		sh 'echo "done"'
                     }
                 }
             
 
-    }}
 	stage("Build images") {
           steps {
 
              
-              sh 'docker build -t wassimba/tpachat:$BUILD_NUMBER .'
-             
-             
-             }
-       
-       
-       }
+             sh 'echo "done".'
    
+           }
+      }
+   stage('Run OWASP ZAP Scan') {
+            steps {
+                sh "  docker run --rm -u root -v $(pwd):/zap/wrk:rw zaproxy/zap-stable zap-baseline.py -t http://172.17.0.1:8089 -r zap_report.html "
+            }
+        } 
       
     
-    }
+   stage('Publish ZAP Report') {
+            steps {
+                archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'zap_report.html',
+                    reportName: 'OWASP ZAP Security Report'
+                ])
+            }
+        }
+    }}
 }
