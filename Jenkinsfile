@@ -115,7 +115,7 @@ agent any
             }
         }
 
-
+}
 	post {
         always {
             // Send email with the report attached
@@ -137,6 +137,6 @@ agent any
 
 
 
-    }
+   
 }
 
