@@ -127,7 +127,7 @@ agent any
                 <p>Build URL: ${env.BUILD_URL}</p>
                 <p>Regards,<br/>Jenkins</p>
                 ''',
-                to: 'wbenahmed@gmail.com', // Replace with the recipient's email address
+                to: 'wbenahmeed@gmail.com', // Replace with the recipient's email address
                 attachmentsPattern: 'zap_report.html', // Attach the report
                 mimeType: 'text/html'
             )
