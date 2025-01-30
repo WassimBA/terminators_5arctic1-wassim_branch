@@ -1,14 +1,5 @@
 pipeline {
 agent any
-   environment { 
-
-        registry = "wassimba/wassimrepo" 
-
-        registryCredential = 'dockerhub' 
-
-      dockerImage = ''
-   
-   } 
     stages {
         
 
@@ -24,7 +15,7 @@ agent any
                 stage("Compile Project") {
             steps {
                 echo "Compile Project"
-                sh 'mvn compile -DskipTests=true'
+                sh 'mvn compile '
             }
         }
        
@@ -38,19 +29,19 @@ agent any
         stage("Build Project") {
             steps {
                 echo "Build & test Project"
-                sh 'mvn clean package -DskipTests=true'
+                sh 'mvn clean package '
             }
         }
         stage('Integration test') {
             steps {
-                sh 'mvn verify -DskipUnitTests=true'
+                sh 'mvn verify '
             }
         }
 
             stage("Quality code Test") {
             steps {
            
-             sh 'mvn sonar:sonar -Dsonar.projectKey=a -Dsonar.host.url=http://192.168.48.0:9000 -Dsonar.login=d6a5b4ab1830302b9a63e1e90cca5809d993af8b'         
+             sh 'mvn sonar:sonar -Dsonar.projectKey=a -Dsonar.host.url=http://192.168.2.101:9000 -Dsonar.login=d6a5b4ab1830302b9a63e1e90cca5809d993af8b'         
                  
                
 
