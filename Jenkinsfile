@@ -75,7 +75,7 @@ agent any
       }
    stage('Run OWASP ZAP Scan') {
             steps {
-                sh "  docker run --rm -u root -v env.WORKSPACE:/zap/wrk:rw zaproxy/zap-stable zap-full-scan.py -t http://172.17.0.1:8089 -r zap_report.html -j -I"
+                sh "  docker run --rm -u root -v ${env.WORKSPACE}/test:/zap/wrk:rw zaproxy/zap-stable zap-full-scan.py -t http://172.17.0.1:8089 -r zap_report.html -j -I"
             }
         } 
       
@@ -87,7 +87,7 @@ agent any
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
-                    reportDir: '.',
+                    reportDir: '${env.WORKSPACE/test}',
                     reportFiles: 'zap_report.html',
                     reportName: 'OWASP ZAP Security Report'
                 ])
