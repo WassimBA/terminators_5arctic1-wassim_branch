@@ -57,23 +57,16 @@ agent any
 }
 	stage('Run OWASP ZAP Scan') {
             steps {
-                sh '  docker run --rm --network bridge -u root -v $(pwd):/zap/wrk:rw ictu/zap2docker-weekly:latest zap-baseline.py -t http://localhost:8089 -r zap_report.html'
+                sh '  docker run --rm --network bridge -u root -v ${env.WORKSPACE}:/zap/wrk:rw ictu/zap2docker-weekly:latest zap-baseline.py -t http://172.17.0.1:8089 -r zap_report.html -j '
             }
         }
-        stage('Publish ZAP Report') {
+	   stage('Publish ZAP Report') {
             steps {
                 archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: '.',
-                    reportFiles: 'zap_report.html',
-                    reportName: 'OWASP ZAP Security Report'
-                ])
             }
         }
-    }
+
+}    }
 }
    
       
