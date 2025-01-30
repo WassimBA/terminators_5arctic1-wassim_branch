@@ -93,7 +93,8 @@ agent any
                 }
             
 
-    }tage("Build images") {
+    }}
+	stage("Build images") {
           steps {
 
              
@@ -104,7 +105,7 @@ agent any
        
        
        }
-  }} 
+   
       
     
     }
