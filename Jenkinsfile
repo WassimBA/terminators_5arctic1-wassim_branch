@@ -50,7 +50,7 @@ agent any
            
              withSonarQubeEnv(credentialsId: 'sonar',installationName: 'sonar') {
 
-		sh 'mvn sonar:sonar -Dsonar.projectKey=a -Dsonar.host.url=http://192.168.2.101:9000'         
+		sh 'mvn sonar:sonar -Dsonar.projectKey=test -Dsonar.host.url=http://192.168.2.101:9000'         
 }                 
                
 
