@@ -83,14 +83,6 @@ agent any
    stage('Publish ZAP Report') {
             steps {
                 archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: '${env.WORKSPACE}',
-                    reportFiles: 'zap_report.html',
-                    reportName: 'OWASP ZAP Security Report'
-                ])
             }
         }
     }}
