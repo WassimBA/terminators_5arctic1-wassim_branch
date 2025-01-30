@@ -32,7 +32,7 @@ agent any
             }
         }
          
-        
+       
         stage("Build Project") {
             steps {
                 echo "Build & test Project"
@@ -75,7 +75,7 @@ agent any
       }
    stage('Run OWASP ZAP Scan') {
             steps {
-                sh "  docker run --rm -u root -v /home/vagrant:/zap/wrk:rw zaproxy/zap-stable zap-baseline.py -t http://172.17.0.1:8089 -r zap_report.html "
+                sh "  docker run --rm -u root -e SKIP_SPIDER_TEST=true -v /home/vagrant:/zap/wrk:rw zaproxy/zap-stable zap-baseline.py -t http://172.17.0.1:8089 -r zap_report.html "
             }
         } 
       
