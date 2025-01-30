@@ -48,7 +48,7 @@ agent any
             stage("Quality code Test") {
             steps {
            
-             withSonarQubeEnv(credentialsId: 'sonar') {
+             withSonarQubeEnv(credentialsId: 'sonar',installationName: 'sonar') {
 
 		sh 'mvn sonar:sonar -Dsonar.projectKey=a -Dsonar.host.url=http://192.168.2.101:9000'         
 }                 
