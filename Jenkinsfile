@@ -31,6 +31,12 @@ agent any
                 sh 'mvn test '
             }
         }
+
+          stage('Integration test') {
+            steps {
+                sh 'mvn verify '
+            }
+        }
          
        
         stage("Build Project") {
@@ -39,22 +45,15 @@ agent any
                 sh 'mvn clean package '
             }
         }
-        stage('Integration test') {
-            steps {
-                sh 'mvn verify '
-            }
-        }
 
-            stage("Quality code Test") {
+         stage("Quality code Test") {
             steps {
            
              withSonarQubeEnv(credentialsId: 'sonar',installationName: 'sonar') {
 
 		sh 'mvn sonar:sonar -Dsonar.projectKey=test -Dsonar.host.url=http://192.168.2.101:9000'         
-}                 
-               
-
-            }
+                 }                 
+             }
         }
            
        
@@ -93,9 +92,7 @@ agent any
                         error "*** File: ${artifactPath}, could not be found";
                     }
                 }
-            
-
-    }
+        }
 }
 	       stage("Build images") {
           steps {
@@ -117,5 +114,6 @@ agent any
                 archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
             }
         }
-    }}
+    }
+}
 
