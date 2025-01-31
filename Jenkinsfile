@@ -18,7 +18,18 @@ agent any
             }
         
         }
-    
+             
+          stage('Increment Version') {
+            steps {
+                script {
+                    // Generate new version using Jenkins build number
+                    def newVersion = "1.0.${env.BUILD_NUMBER}"
+
+                    // Update the version in pom.xml
+                    sh "mvn versions:set -DnewVersion=${newVersion}"
+                }
+            }
+        }
         
                 stage("Compile Project") {
             steps {
