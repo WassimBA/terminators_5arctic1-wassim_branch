@@ -22,6 +22,7 @@ agent any
         
                 stage("Compile Project") {
             steps {
+                 sh 'cat pom.xml'
                 sh 'mvn clean'
                 sh 'mvn compile '
             }
