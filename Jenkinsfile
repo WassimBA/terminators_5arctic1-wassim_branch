@@ -33,7 +33,6 @@ agent any
         
                 stage("Compile Project") {
             steps {
-                 sh 'cat pom.xml'
                 sh 'mvn clean'
                 sh 'mvn compile '
             }
@@ -54,9 +53,7 @@ agent any
        
         stage("Build Project") {
             steps {
-                echo "Build & test Project"
-                sh 'mvn clean install '
-            }
+                sh 'mvn clean install'
         }
 
          stage("Quality code Test") {
