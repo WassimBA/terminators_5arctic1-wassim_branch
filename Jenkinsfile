@@ -114,6 +114,11 @@ agent any
                 archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
             }
         }
+	  stage('Clean Workspace') {
+            steps {
+                cleanWs() 
+            }
+        }
 
 }
 	post {
@@ -132,11 +137,7 @@ agent any
                 mimeType: 'text/html'
             )
         }
-    }
-
-
-
-
-   
+   }
+  
 }
 
