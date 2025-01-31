@@ -55,7 +55,7 @@ agent any
             steps {
                 sh 'mvn clean install'
         }
-
+}
          stage("Quality code Test") {
             steps {
            
