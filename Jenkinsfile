@@ -12,7 +12,8 @@ agent any
 
         stage ("Git checkout "){
             steps{
-        git branch: 'wassim_branch', 
+            cleanWs()
+            git branch: 'wassim_branch', 
             url: 'https://github.com/hazem-soussi/terminators_5arctic1.git'
             }
         
@@ -42,7 +43,7 @@ agent any
         stage("Build Project") {
             steps {
                 echo "Build & test Project"
-                sh 'mvn clean package '
+                sh 'mvn clean install '
             }
         }
 
