@@ -114,22 +114,6 @@ agent any
                 archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
             }
         }
-	post{
-        always {
-            // Send email with the report attached
-            emailext (
-                subject: "OWASP ZAP Scan Report - ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
-                body: '''
-                <p>Hello,</p>
-                <p>The OWASP ZAP scan for the build is complete. Please find the report attached.</p>
-                <p>Build URL: ${env.BUILD_URL}</p>
-                <p>Regards,<br/>Jenkins</p>
-                ''',
-                to: 'wbenahmeed@gmail.com', // Replace with the recipient's email address
-                attachmentsPattern: 'zap_report.html', // Attach the report
-                mimeType: 'text/html'
-            )
-        }
    }
   
 }
