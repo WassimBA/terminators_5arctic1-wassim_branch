@@ -21,7 +21,7 @@ agent any
         
                 stage("Compile Project") {
             steps {
-                echo "Compile Project"
+                sh 'mvn clean'
                 sh 'mvn compile '
             }
         }
@@ -62,6 +62,11 @@ agent any
 	stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
+
+			pom = readMavenPom file: "pom.xml"
+	                Debug: Print the version from pom.xml
+        	        echo "Version from pom.xml: ${pom.version}"
+			
                     pom = readMavenPom file: "pom.xml";
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
