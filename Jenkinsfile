@@ -114,7 +114,7 @@ agent any
                 archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
             }
         }
-	
+	post{
         always {
             // Send email with the report attached
             emailext (
